@@ -5,9 +5,226 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #F6F5F4;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+
+img{
+  height: 35px;
+  width: 35px;
+}
+button{
+  cursor: pointer;
+  border: none;
+ 
+}
+h3{
+  color: #9F9F9F;
+}
+
+.main__container{
+  width: 1300px;
+  margin: 0 auto;
+}
+
+.filters__wrapper{
+  width: 1300px;
+  height: 300px;
+  background-color: #FFFFFF;
+  margin-bottom: 10px;
+  border-radius: 15px;
+}
+
+.filters__container{
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0 30px 0;
+}
+/* SumInput && inputs-term =================================================================================== */
+
+.sum__input, .inputs-term__input{
+  height: 30px;
+  width: 120px;
+  border-radius: 10px;
+  background-color: #fcfbfb;
+  margin-top: 10px;
+  border: 1px solid gray;
+  padding: 0 10px;
+}
+.inputs-term__input{
+  width: 100px;
+}
+.sum__btn, .inputs-term__btn{
+  height: 30px;
+  width: 90px;
+  border-radius: 5px;
+  background-color: pink;
+}
+.sum__btn{
+  margin-left: 10px;
+}
+
+/* PeriodFilters =========================================================================================== */
+
+
+.period__btn, .interest__btn, .period__btn-active, .interest__btn-active{
+  height: 26px;
+  width: 80px;
+  border: none;
+  border-radius: 3px;
+  background-color:#f3f2f2;
+  margin-right: 5px;
+  margin-top: 10px;
+}
+
+.period__btn-active{
+  background-color: #C3C3C3;
+}
+
+/* inputs-term =================================================================================== */
+
+.inputs-term__container{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 0 450px;
+  width: 250px;
+}
+.inputs-term__text{
+  margin-top: 10px;
+}
+.inputs-term__inputs{
+  display: flex;
+  gap: 10px;
+}
+
+.inputs-term__btn{
+  margin-top: 10px;
+}
+
+/* InterestFilters ==================================================================================== */
+
+.interest-filter__container{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.interest-filter__items__container{
+  margin-top: 8px;
+  display: flex;
+  gap: 5px;
+}
+.interest-filter__item, .interest-filter__item-active{
+  display: flex;
+  align-items: center;
+  background-color: #f3f2f2;
+  height: 30px;
+  border-radius: 5px;
+  padding-right: 10px;
+}
+.interest__btn{
+  background-color: #FCFBFB;
+}
+
+/* checkbox other filters =================================================================================== */
+
+.checkbox__wrapper{
+  display: flex;
+  margin-top: 10px;
+  
+}
+.checkbox__item,.checkbox__item-active{
+  /* display: flex; */
+  background-color: #f3f2f2;
+  height: 30px;
+  border-radius: 5px;
+  margin-right: 5px;
+  padding-right: 8px;
+}
+
+.interest-filter__item-active,.checkbox__item-active{
+  background-color:#C3C3C3;
+}
+
+/* sort ================================================================================================ */
+
+.sort__container{
+  display: flex;
+  justify-content:end;
+  gap: 5px;
+  margin: 30px 0 20px;
+}
+.sort__btn{
+  border-radius: 3px;
+  background-color:rgb(185, 252, 230);
+}
+
+
+/* main button ================================================================================== */
+
+.main__btn-div{
+  display: flex;
+  justify-content: end;
+  margin: 0 40px 20px auto;
+}
+
+.main__btn{
+  width: 180px;
+  height: 45px;
+  background-color: black;
+  color: #FFFFFF;
+  font-weight:700;
+  font-size: medium;
+  letter-spacing: 1px;
+  border-radius: 8px;
+}
+
+
+
+
+
+/* header_deposits && deposits ================================================================================== */
+
+.header__container, .deposit__container{
+  width: 1300px;
+  display: grid;
+  grid-template-columns: repeat(11, 1fr) ; 
+}
+.header__container{
+  grid-template-rows: repeat(2, 24px);
+  background-color: rgb(159, 232, 140);
+  border-radius: 5px;
+}
+.deposit__container{
+  grid-template-rows: repeat(2, 32px);
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  margin-top: 10px;
+  height: 80px;
+}
+.header__container>div, .deposit__container>div{
+  display: grid;
+  align-items: center;
+  justify-items: start;
+}
+.deposit__container>div{
+  height: 80px;
+}
+.deposit__container>div:first-child, .header__container>div:first-child{
+  margin-left: 10px;
+}
+
+.img{
+  /* background-color: pink; */
+}
+.deposit__item{
+  /* background-color: aquamarine; */
+}
+
+
