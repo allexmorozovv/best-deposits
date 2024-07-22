@@ -1,15 +1,11 @@
+import { Deposit } from "./deposit";
+
  export interface Bank {
   id: string;
   name: string,
   location: string,
   rank: number,
   rating: string
-}
-
-export interface AllBanks {
-    name: string,
-    logo: string,
-    id: string
 }
 
 export const mockBanks: Bank[] = [
@@ -51,8 +47,26 @@ export const mockBanks: Bank[] = [
 ]
 
 
+export type Bank2 = typeof banks[number]
 
-export const banks:AllBanks[] = [
+export type BankId = Bank2["id"];
+
+/// https://blog.logrocket.com/how-to-use-type-guards-typescript/
+
+export const isBankId = (id: string | undefined): id is BankId => {
+    if (id === undefined) {
+        return false
+    }
+    const banksIds = banks.map(el => el.id) as string[];
+    return banksIds.includes(id)
+}
+
+const bankId2Locations: Partial<Record<BankId, string[]>> = {
+    sberbank: ["A", "B"],
+};
+
+
+export const banks = [
   {
       name: "СберБанк",
       logo: "https://api.mainfin.ru/bank_logo/icons//sberbank.svg",
@@ -1638,7 +1652,6 @@ export const banks:AllBanks[] = [
       logo: "https://api.mainfin.ru/bank_logo/icons//taidon.svg",
       id: "taidon"
   }
-];
+] as const;
 
 
-console.log(">>>>", banks.length);

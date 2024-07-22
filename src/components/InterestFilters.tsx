@@ -1,49 +1,29 @@
-import React, { ChangeEvent, ChangeEventHandler,FormEvent, useState } from 'react'
-import { InterestType } from '../domain/filters'
-
-interface InterestFilterProps {
-  value: InterestType,
-  onChange: (value: InterestType) => void
-}
+import React from 'react'
+import { InterestTypes2 } from '../domain/filters'
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { setInterest } from '../redux/filtersSlice'
 
 
-function InterestFilters( {value, onChange}: InterestFilterProps) {
 
-// radio button component ?
 
-  const [interestPayment, setInterestPayment] = useState<InterestType>(value)
+function InterestFilters() {
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-  }
-  const handleChange = (event: any) => {
-    // console.log('event', event);
-    // target.value vs currentTarget.value
-    onChange(event.target.value)
-    setInterestPayment(event.target.value)
-  }
+  const dispatch = useAppDispatch()
+  const interest = useAppSelector(state => state.filters.interest )
 
   return (
     <div className='interest-filter__container'>
       <h3>Выплата %</h3>
       <div className='interest-filter__text'>Выберите частоту выплат</div>
       <div className='interest-filter__items__container'>
-        <div className={interestPayment === "no matter"?'interest-filter__item-active':'interest-filter__item'}>
-          <input  type="radio" value={"no matter"} checked={interestPayment === "no matter"} onChange={handleChange} /> 
-          <p>не важно</p>
-        </div>
-        <div className={interestPayment === "monthly"?'interest-filter__item-active':'interest-filter__item'} >
-          {/* <div className='interest-filter__input'> */}
-          <input type="radio" value={"monthly"} checked={interestPayment === "monthly" } onChange={handleChange}/> 
-          {/* </div> */}
-          <p>ежемесячно</p>
-        </div>
-        <div className={interestPayment === "finally"?'interest-filter__item-active':'interest-filter__item'}>
-          {/* <div className='interest-filter__input'> */}
-          <input type="radio" value={"finally"} checked={interestPayment === "finally"}  onChange={handleChange}/> 
-          {/* </div> */}
-          <p>в конце</p>
-        </div>
+        {InterestTypes2.map(el => {
+          return (
+            <div key={el.name}className={interest === el?'interest-filter__item-active':'interest-filter__item'}>
+            <input  type='radio' value={el.name} checked={interest === el} onChange={() => dispatch(setInterest(el))}/> 
+            <p>{el.label}</p>
+            </div>
+          )
+        })}
       </div>
     </div>
   )

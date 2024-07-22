@@ -1,32 +1,57 @@
-import React, { ChangeEvent, FormEvent,  useState }from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { PeriodInputsType } from '../domain/filters'
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { choosePeriod } from '../redux/filtersSlice'
 interface PeriodFilterProps {
-  value: [number, number],
-  onChange: (value: [number, number]) => void
-  inputOnChange:(value1: string, value2: string) => void
-
-  periodInputsValue: PeriodInputsType
-  setPeriodInputsValue:(periodInputsValue: PeriodInputsType) => void
+  // periodInputsValue: PeriodInputsType
+  // setPeriodInputsValue: (periodInputsValue: PeriodInputsType) => void
 }
- 
-
-function PeriodFilter({value, onChange, inputOnChange,  periodInputsValue,setPeriodInputsValue }: PeriodFilterProps) {
-  // только инпуты с диапазоном срока вклада
-
-  // const [inputsValue, setInputsValue] = useState({value1:"", value2:""})
 
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+function PeriodFilter() {
+  interface Term {
+    label: string,
+    min: string,
+    max: string
   }
+  const terms: Term[] = [
+    {
+      label:'любой',
+      min: "",
+      max:""
+    },
+    // {
+    //   label:'1 месяц',
+    //   min: "1",
+    //   max:"60"
+    // },
+    {
+      label:'3 месяца',
+      min: "61",
+      max:"140"
+    },
+    {
+      label:'6 месяцев',
+      min: "141",
+      max:"210"
+    },
+    {
+      label:'1 год',
+      min: "211",
+      max: "400"
+    }
+  ]
 
+  const period = useAppSelector(state => state.filters.period )
+  const dispatch = useAppDispatch()
+  
   const handleChangeInput1 = (event: ChangeEvent<HTMLInputElement>) => {
-    // setInputsValue({...inputsValue, value1: event.target.value})
-    setPeriodInputsValue({...periodInputsValue, inputValue1:event.target.value})
+    // setPeriodInputsValue({ ...periodInputsValue, inputValue1: event.target.value })
+    dispatch(choosePeriod({...period, inputValue1: event.target.value}))
   }
   const handleChangeInput2 = (event: ChangeEvent<HTMLInputElement>) => {
-    // setInputsValue({...inputsValue, value2: event.target.value})
-    setPeriodInputsValue({...periodInputsValue, inputValue2:event.target.value})
+    // setPeriodInputsValue({ ...periodInputsValue, inputValue2: event.target.value })
+    dispatch(choosePeriod({...period, inputValue2: event.target.value}))
   }
 
   return (
@@ -34,31 +59,20 @@ function PeriodFilter({value, onChange, inputOnChange,  periodInputsValue,setPer
       <h3>Cрок вклада</h3>
       <div>Выберите срок вклада</div>
       <div>
-         <button
-          className={value[0] === 0 && value[1]=== Infinity?"period__btn-active":"period__btn"}
-          onClick={()=>onChange([0, Infinity])}> любой</button>
-        <button
-        className={value[0] === 50 && value[1] === 140 ?"period__btn-active":"period__btn"}
-        onClick={()=> onChange([50, 140])}> 3 месяца</button>
-        <button 
-          className={value[0] === 141 && value[1] === 210 ?"period__btn-active":"period__btn"}
-          onClick={()=> onChange([141, 210])}> 6 месяцев</button>
-        <button 
-          className={value[0] === 211 && value[1] === 400 ?"period__btn-active":"period__btn"}
-          onClick={()=> onChange([211, 400])}> 1 год</button>
+        {terms.map(term => {
+          return(
+            <button key={term.label}
+              className={term.min === period.inputValue1 && term.max === period.inputValue2 ? 'period__btn-active' : 'period__btn'} 
+              onClick={() => dispatch(choosePeriod({inputValue1: term.min, inputValue2: term.max}))}>{term.label}
+            </button>
+          )
+        })}
       </div>
-      {/* <div className='inputs-term__container'> */}
       <div className='inputs-term__text'>Или введите диапазон в днях</div>
-        <form onSubmit={handleSubmit} >
-          <div className='inputs-term__inputs'>
-             {/* <input className='inputs-term__input' placeholder='от' value={inputsValue.value1} onChange={handleChangeInput1} />
-             <input className='inputs-term__input' placeholder='до' value={inputsValue.value2} onChange={handleChangeInput2}/> */}
-             <input className='inputs-term__input' placeholder='от' value={periodInputsValue.inputValue1} onChange={handleChangeInput1} />
-             <input className='inputs-term__input' placeholder='до' value={periodInputsValue.inputValue2} onChange={handleChangeInput2}/>
-            {/* <button className='inputs-term__btn' onClick={()=> inputOnChange(inputsValue.value1, inputsValue.value2)} >показать</button> */}
-          </div>
-        </form>
-      {/* </div> */}
+      <div className='inputs-term__inputs'>
+        <input className='inputs-term__input' placeholder='от' value={period.inputValue1} onChange={handleChangeInput1} />
+        <input className='inputs-term__input' placeholder='до' value={period.inputValue2} onChange={handleChangeInput2} />
+      </div>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import { BankId } from "./bank";
 
 export interface Deposit {
   depositId: string
@@ -6,7 +7,7 @@ export interface Deposit {
   interest: "monthly" | "annual" | "finally",
   // capitalization: true,
   period: number,
-  bankId: string,
+  bankId: BankId,
   min: number,
   max: number,
   replenishment: number,
@@ -26,7 +27,7 @@ export interface IDeposit {
   interest: "monthly" | "annual" | "finally",
   // capitalization: true,
   period: number,
-  bankId: string,
+  bankId: BankId,
   min: number,
   max: number,
   replenishment: number,
@@ -112,7 +113,6 @@ export const mockDeposits: Deposit[] = [
     retiree: false,
     url: "https://domrfbank.ru/deposits/",
     note: ""
-
   },
   {
     depositId: crypto.randomUUID(),

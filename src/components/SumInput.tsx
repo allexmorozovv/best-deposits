@@ -1,33 +1,23 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent } from 'react'
+import { useAppDispatch, useAppSelector } from '../hooks/hooks'
+import { setDepositSum } from '../redux/filtersSlice'
 
-interface SumInputProps {
- onClick: (value: number) => void
 
- sumInputValue:string
- setSumInputValue:(val:string) => void
- 
- 
- 
 
-}
+function SumInput() {
 
-function SumInput({onClick,sumInputValue, setSumInputValue}: SumInputProps) {
-  const [value, setValue] = useState<string>('')
+  const dispatch = useAppDispatch()
+  const depositSum = useAppSelector(state => state.filters.sumDeposit)
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value)
+    dispatch(setDepositSum(event.target.value))
   }
-  const handleChange2 = (event: ChangeEvent<HTMLInputElement>) => {
-    setSumInputValue(event.target.value)
-  }
- 
+
   return (
     <div>
       <h3>Cумма  вклада</h3>
       <div>Введите сумму</div>
-        {/* <input className='sum__input' type='text' value={value} onChange={handleChange} placeholder='0'  />  */}
-        <input className='sum__input' type='text' value={sumInputValue} onChange={handleChange2} placeholder='0'  /> 
-        {/* <button className='sum__btn' onClick={()=> onClick(Number(value))}>показать</button> */}
-      </div>
+      <input className='sum__input' type='text' value={depositSum} onChange={handleChange} placeholder='0'  /> 
+    </div>
   )
 }
 
