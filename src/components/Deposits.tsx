@@ -8,16 +8,17 @@ import DepositItem from './DepositItem'
 type DepositsProps = {
   filteredDeposits: IDeposit[]
 }
-function Deposits({filteredDeposits}: DepositsProps) {
+function Deposits({ filteredDeposits }: DepositsProps) {
   return (
     <div>
-        {filteredDeposits.map(deposit => {
-          return (
-            <div key={deposit.depositId} >
-              <DepositItem deposit={deposit}/>
-            </div>
-          )
-        })}
+      <h2>test</h2>
+      {filteredDeposits.map((deposit) => {
+        return (
+          <div key={deposit.depositId}>
+            <DepositItem deposit={deposit} />
+          </div>
+        )
+      })}
     </div>
   )
 }
